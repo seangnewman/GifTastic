@@ -28,9 +28,30 @@ var getGiphy = function(theParameters){
     dataType: "json"
   }).done(function(response){
               console.log(response.data);
-              return response.data;
+              //return response.data;
+              buildCarousel(response.data);
             })
 };
+
+function buildCarousel(data){
+  for(var i=0; i < data.length; i++){
+    var theImage = '<figure id="fig' + (i + 1) + '"><img src=' + data[i].images["480w_still"].url + ' ></figure>';
+    var imgSource = data[i].images["480w_still"].url;
+    console.log("img" + (i+1) +  imgSource);
+    $("#img" + (i+1)).attr("src",imgSource);
+    $("#img" + (i+1)).attr("data-index",i);
+    $("#img" + (i+1)).attr("data-still",data[i].images["480w_still"].url);
+    $("#img" + (i+1)).attr("data-giphy",data[i].images["downsized_large"].url);
+ 
+/*
+    $("#carousel").append(theImage);
+    $("id" + (i+1)).data("index",i);
+    $("id" + (i+1)).data("still",data[i].images["480w_still"].url);
+    $("id" + (i+1)).data("giphy",data[i].images["downsized_large"].url);
+    */
+
+  }
+}
 
 //var subjects[""]
 
@@ -45,3 +66,4 @@ apiParameters.setRatings(ratings);
 console.log(apiParameters.apiURL());
 
 getGiphy(apiParameters);
+ 
