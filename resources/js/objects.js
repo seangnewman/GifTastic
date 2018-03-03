@@ -42,22 +42,14 @@ function buildCarousel(data){
     $("#img" + (i+1)).attr("data-index",i);
     $("#img" + (i+1)).attr("data-still",data[i].images["480w_still"].url);
     $("#img" + (i+1)).attr("data-giphy",data[i].images["downsized_large"].url);
- 
-/*
-    $("#carousel").append(theImage);
-    $("id" + (i+1)).data("index",i);
-    $("id" + (i+1)).data("still",data[i].images["480w_still"].url);
-    $("id" + (i+1)).data("giphy",data[i].images["downsized_large"].url);
-    */
-
-  }
+ }
 }
 
 //var subjects[""]
 
 
-var terms = ["marvel films", "sports cars", "card racing","nba", "mlb","Groot","The Rock", "Agent Carter", "Mr Robot", "Hobbits"];
-var term = terms[6];
+var terms = ["avengers", "sports cars", "card racing","nba", "mlb","Groot","The Rock", "Agent Carter", "Mr Robot", "Hobbits"];
+var term = terms[1];
 var ratings = '';
 apiParameters.setSearchTerm(term);
 apiParameters.limit += 10;
