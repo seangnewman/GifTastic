@@ -14,29 +14,29 @@ $(document).ready(function() {
       if(elementText.length > 0){
         terms.push(elementText);
         initializeButtons();
+        $('#searchInput').val(''); 
       }
          
     });// End Search Click Event
 
     //Listen for event to search Giphy
-    $('#btnContainer').on("click", "button",function(){
+    $('#btnContainer').on("click", "button",function(event){
+        event.preventDefault();
         // Delegate to the container as buttons cannot be bound
         var btnTopic = $(this).attr("data-name");
   
         returnGiphy(btnTopic);
-       
- 
     });
 
 
     //At this point I don't really need to delegate images
     //But doing so for flexibility sake, may want to dynamically load images
-    $('#giphyImages').on("click","img", function(){
-       
+    $('#giphyImages').on("click","img", function(event){
+        event.preventDefault();
         // If an active GIF is running, set it's status to 0 and the src to stil
         var activeID = '#' + findActiveGiphy();
         var thisID = '#' + $(this).attr("id");
-        console.log("At initiation thisID = " + thisID);
+        
         // if the current status of this element is active, turn off
         if(thisID === activeID){
             // set this element to still image
@@ -47,25 +47,16 @@ $(document).ready(function() {
             setGiphyActive(thisID);   
         }else{
             //No active elements
-            console.log("the current id is " + thisID);
             setGiphyActive(thisID);
         }
-
-         
-        
-        
-    });// End carousel click event
-
-
-    
-
+    });// 
 });
 
  function initializeButtons(){
-    $('#btnContainer').empty();
-     for( var i=0; i < terms.length; i++){
-       createNewButton(terms[i]);
-     }
+   $('#btnContainer').empty();
+   for( var i=0; i < terms.length; i++){
+     createNewButton(terms[i]);
+   }
  }
 
  function createNewButton(topic){
@@ -77,41 +68,37 @@ $(document).ready(function() {
  }
 
  function returnGiphy(searchParameter){
-    resetGiphyParams();
-    
-        apiParameters.setSearchTerm(searchParameter.trim());
-    apiParameters.setLimits();
-    apiParameters.setRatings();
-    console.log(apiParameters.apiURL());
-    getGiphy(apiParameters);
+   resetGiphyParams();
+   apiParameters.setSearchTerm(searchParameter.trim());
+   apiParameters.setLimits();
+   apiParameters.setRatings();
+   getGiphy(apiParameters);
  }
 
  function findActiveGiphy(){
-     if(document.querySelectorAll('[data-state="1"]').length > 0 ){
-        return document.querySelectorAll('[data-state="1"]')[0].getAttribute("id");
-     }else {
-        return "none";
-    }
+   if(document.querySelectorAll('[data-state="1"]').length > 0 ){
+     return document.querySelectorAll('[data-state="1"]')[0].getAttribute("id");
+   }else {
+     return "none";
+   }
  }
 
  function setGiphyStill(imgID){
   var stillImage = $(imgID).attr("data-still");
-  console.log("inside set the value is " + imgID);
   $(imgID).attr("data-state", 0);
   $(imgID).attr("src", stillImage);
  }
 
  function setGiphyActive(imgID){
-    var activeImage = $(imgID).attr("data-animated");
-    console.log("Inset the active the image id and path are " + activeImage);
-    $(imgID).attr("data-state", 1);
-    $(imgID).attr("src", activeImage.trim());
-   }
+   var activeImage = $(imgID).attr("data-animated");
+   $(imgID).attr("data-state", 1);
+   $(imgID).attr("src", activeImage.trim());
+ }
 
-   function resetGiphyParams(){
-    apiParameters.searchTerm = 'search?q=';
-    apiParameters.limit = '&limit=';
-    apiParameters.rating = '&rating=';
-   }
+ function resetGiphyParams(){
+  apiParameters.searchTerm = 'search?q=';
+  apiParameters.limit = '&limit=';
+  apiParameters.rating = '&rating=';
+ }
    
  

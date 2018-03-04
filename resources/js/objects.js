@@ -16,7 +16,7 @@ var apiParameters = {
       limit: '&limit=',
       setLimits: function(limits = null){
         this.limit += (limits === '' || limits === null) ? 10 :  limits;
-        console.log(this.limit);
+         
       },
       rating: '&rating=',
       setRatings : function(ratings = null){
@@ -36,26 +36,21 @@ var getGiphy = function(theParameters){
     method: 'GET',
     dataType: "json"
   }).done(function(response){
-              console.log(response.data);
-              //return response.data;
-              buildCarousel(response.data);
-            })
+    //return response.data;
+      buildCarousel(response.data);
+  })
 };
 
 function buildCarousel(data){
   $('#giphyImages').empty();
-  console.log(data);
+   
   for(var i=0; i < data.length; i++){
     var imgStill = data[i].images["480w_still"].url.trim();
-    var imgAnimated = data[i].images.original_mp4.mp4.trim() ;
-     
+    var imgAnimated = data[i].images.downsized_large.url.trim() ;
    
     var theFigure = $('<figure>');
     theFigure.attr("id", "fig" + (i+1));
     theFigure.attr("data-index", i);
-    if(i === 0){
-      theFigure.addClass("showFig");
-    }
     var theImage = $('<img>');
     theImage.attr("id", "img" + (i + 1));
     theImage.attr('src',imgStill);
@@ -63,7 +58,16 @@ function buildCarousel(data){
     theImage.attr("data-still", imgStill);
     theImage.attr("data-animated", imgAnimated);
     theImage.attr("data-index", i);
+
+    theRating = $('<div>');
+    theRating.addClass('ratings');
+    theRating.attr("data-index",i);
+    theRating.attr("id","rating"+(i+1));
+    theRating.text('Rating : ' +  data[i].rating);
+
     theFigure.append(theImage);
+    theFigure.append(theRating);
+
     $('#giphyImages').prepend(theFigure);
     }
 }
