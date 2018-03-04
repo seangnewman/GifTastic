@@ -11,14 +11,17 @@ var apiParameters = {
       searchTerm : 'search?q=',
       setSearchTerm : function(term){
          this.searchTerm = 'search?q=' + term.replace(' ','+');
-         console.log("search term is " + this.searchTerm);
+         
       },
       limit: '&limit=',
+      setLimits: function(limits = null){
+        this.limit += (limits === '' || limits === null) ? 10 :  limits;
+        console.log(this.limit);
+      },
       rating: '&rating=',
-      setRatings : function(ratings){
-        console.log("parameter ratings = " + ratings);
-        this.rating = (ratings === '' || ratings === null) ? '' :this.rating + ratings;
-        console.log(this.rating);
+      setRatings : function(ratings = null){
+         this.rating = (ratings === '' || ratings === null) ? '' :this.rating + ratings;
+         
       },
       apiURL : function(){
         return (this.baseURL + this.searchTerm + this.limit + this.rating + this.clientID);
@@ -41,10 +44,11 @@ var getGiphy = function(theParameters){
 
 function buildCarousel(data){
   $('#giphyImages').empty();
+  console.log(data);
   for(var i=0; i < data.length; i++){
     var imgStill = data[i].images["480w_still"].url.trim();
     var imgAnimated = data[i].images.original_mp4.mp4.trim() ;
-    console.log("The animated setting is " +imgAnimated);
+     
    
     var theFigure = $('<figure>');
     theFigure.attr("id", "fig" + (i+1));

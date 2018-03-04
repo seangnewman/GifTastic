@@ -77,10 +77,11 @@ $(document).ready(function() {
  }
 
  function returnGiphy(searchParameter){
-    var ratings = '';
-    apiParameters.setSearchTerm(searchParameter.trim());
-    apiParameters.limit += 10;
-    apiParameters.setRatings(ratings);
+    resetGiphyParams();
+    
+        apiParameters.setSearchTerm(searchParameter.trim());
+    apiParameters.setLimits();
+    apiParameters.setRatings();
     console.log(apiParameters.apiURL());
     getGiphy(apiParameters);
  }
@@ -105,6 +106,12 @@ $(document).ready(function() {
     console.log("Inset the active the image id and path are " + activeImage);
     $(imgID).attr("data-state", 1);
     $(imgID).attr("src", activeImage.trim());
+   }
+
+   function resetGiphyParams(){
+    apiParameters.searchTerm = 'search?q=';
+    apiParameters.limit = '&limit=';
+    apiParameters.rating = '&rating=';
    }
    
  
