@@ -1,18 +1,79 @@
-
 html{
   font-size: 16px;
-  
 }
+
 body{
-    background-image: url('../images/background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+}
+
+main{
+    display:flex;
+}
+
+#btnContainer{
+  display:flex;
+  justify-content: space-between;
+  width: 65%;
+  flex-wrap: wrap;
+  margin:0 auto;
+  opacity: .6;
+}
+
+#inputSection{
+    width:100%;
+    display:flex;
 }
  
-#carousel figure {
-	 
-	width: 300;
-	height: 200;
+#inputContainer{
+    width:30%;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
- 
+
+#addToTerms{
+  font-size:1.25rem;
+  width: 25%;
+  border-radius: 5%;
+  align-content: center;
+  margin: .25rem;
+  font-weight: bold;
+  color : #2E2E2E;
+  opacity: .9;
+  margin: 0 auto;
+} 
+#searchButtonContainer{
+    width:60%;
+    align-content: center;
+    margin: .5rem;
+     
+}
+
+label{
+    opacity: .9;
+    font-weight: bold;
+    font-size: 2rem;
+    padding-top: 2rem;
+   
+}
+#searchInput{
+    font-size:1.5rem;
+    color:whitesmoke;
+    width:60%;
+    opacity: .9;
+
+}
+
+
+.btnClass {
+  font-size: 1.5rem;
+  padding: .5rem;
+  height: 3.5rem;
+  width: 10rem;
+  background-color:#9F9F9F;
+  color: #2E2E2E;
+  margin: .25rem;
+  border-radius: .25rem;
+}
