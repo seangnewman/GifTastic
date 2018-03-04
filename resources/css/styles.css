@@ -77,3 +77,22 @@ label{
   margin: .25rem;
   border-radius: .25rem;
 }
+
+#gallery{
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+     
+    margin: 0 auto;
+
+}
+figure{
+    width:20%;
+    display: inline-block;
+    justify-content:space-between;
+}
+img{
+    width: 100%;
+    height: 15rem;
+    
+}

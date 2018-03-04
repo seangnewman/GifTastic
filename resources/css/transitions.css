@@ -36,6 +36,7 @@
 #carousel figure.showFig img:hover {
 	box-shadow: 3px 3px 5px #000;
 	transform: scale(2);
+	
 }
 .no-csstransforms3d #carousel figure, .no-csstransforms3d #toggle {
 	display: none;

@@ -1,10 +1,16 @@
+var imgState = {
+  "still": 0,
+  "animated" : 1
+}
+
+
 //Object houses parameters necessary to complete a successful ajax call
 var apiParameters = {
       baseURL : 'https://api.giphy.com/v1/gifs/',
       clientID : '&api_key=pPF9Z4AXkjkA8KZ6jYFU5rMuZ5VA6U4A',
       searchTerm : 'search?q=',
       setSearchTerm : function(term){
-         this.searchTerm += term.replace(' ','+');
+         this.searchTerm = 'search?q=' + term.replace(' ','+');
          console.log("search term is " + this.searchTerm);
       },
       limit: '&limit=',
@@ -34,28 +40,28 @@ var getGiphy = function(theParameters){
 };
 
 function buildCarousel(data){
+  $('#giphyImages').empty();
   for(var i=0; i < data.length; i++){
-    var theImage = '<figure id="fig' + (i + 1) + '"><img src=' + data[i].images["480w_still"].url + ' ></figure>';
-    var imgSource = data[i].images["480w_still"].url;
-    console.log("img" + (i+1) +  imgSource);
-    $("#img" + (i+1)).attr("src",imgSource);
-    $("#img" + (i+1)).attr("data-index",i);
-    $("#img" + (i+1)).attr("data-still",data[i].images["480w_still"].url);
-    $("#img" + (i+1)).attr("data-giphy",data[i].images["downsized_large"].url);
- }
+    var imgStill = data[i].images["480w_still"].url.trim();
+    var imgAnimated = data[i].images.original_mp4.mp4.trim() ;
+    console.log("The animated setting is " +imgAnimated);
+   
+    var theFigure = $('<figure>');
+    theFigure.attr("id", "fig" + (i+1));
+    theFigure.attr("data-index", i);
+    if(i === 0){
+      theFigure.addClass("showFig");
+    }
+    var theImage = $('<img>');
+    theImage.attr("id", "img" + (i + 1));
+    theImage.attr('src',imgStill);
+    theImage.attr("data-state", imgState.still);
+    theImage.attr("data-still", imgStill);
+    theImage.attr("data-animated", imgAnimated);
+    theImage.attr("data-index", i);
+    theFigure.append(theImage);
+    $('#giphyImages').prepend(theFigure);
+    }
 }
 
-//var subjects[""]
-
-
 var terms = ["avengers", "sports cars", "card racing","nba", "mlb","Groot","The Rock", "Agent Carter", "Mr Robot", "Hobbits"];
-var term = terms[1];
-var ratings = '';
-apiParameters.setSearchTerm(term);
-apiParameters.limit += 10;
-
-apiParameters.setRatings(ratings);
-console.log(apiParameters.apiURL());
-
-getGiphy(apiParameters);
- 
